@@ -26,7 +26,9 @@ const allTypeQuery = {
 }
 
 const submitProject = (project) =>
-    apiClient.post('projects', project);
+    project.id
+        ? apiClient.put('projects/'+project.id, project)
+        : apiClient.post('projects', project);
 
 const ProjectService = {
     allQuery,

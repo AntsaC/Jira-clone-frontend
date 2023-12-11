@@ -30,6 +30,7 @@ const ProjectFormDialog = ({project, onCancel}) => {
       <Dialog fullWidth={true} maxWidth={'md'} open={project} >
           <DialogTitle>Create a new project</DialogTitle>
           <form onSubmit={mutation.mutate}>
+              <input type={'hidden'} name={'id'} defaultValue={project?.id} />
               <DialogContent>
                   <Box display={'flex'} gap={3} marginTop={2} flexDirection={'column'}>
                       <TextField
