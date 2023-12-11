@@ -25,7 +25,7 @@ const ProjectPage = () => {
             <Box display={'flex'} justifyContent={'flex-end'}>
                 <NewItemButton onClick={() => setProject(initialProject)} primary={'New project'}/>
             </Box>
-            <ProjectDataGrid project={data}/>
+            <ProjectDataGrid project={data} onEditProject={setProject} />
             <ProjectFormDialog project={project} onCancel={() => setProject(null)} />
         </Box>
     )
