@@ -1,9 +1,4 @@
 import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
     FormControl, InputLabel,
     MenuItem,
     Select,
@@ -15,6 +10,7 @@ import {useMutation, useQuery} from "@tanstack/react-query";
 import ProjectService from "./Service.js";
 import FormDataUtil from "../../lib/utils/FormDataUtil.jsx";
 import queryClient from "../../config/query-client.js";
+import FormDialog from "../common/FormDialog.jsx";
 
 const ProjectFormDialog = ({project, onCancel}) => {
     const {data} = useQuery(ProjectService.allTypeQuery);
@@ -27,46 +23,34 @@ const ProjectFormDialog = ({project, onCancel}) => {
     });
 
   return (
-      <Dialog fullWidth={true} maxWidth={'md'} open={project} >
-          <DialogTitle>Create a new project</DialogTitle>
-          <form onSubmit={mutation.mutate}>
-              <input type={'hidden'} name={'id'} defaultValue={project?.id} />
-              <DialogContent>
-                  <Box display={'flex'} gap={3} marginTop={2} flexDirection={'column'}>
-                      <TextField
-                          label={'Name'}
-                          name={'name'}
-                          defaultValue={project?.name}
-                      />
-                      <TextField
-                          label={'Key'}
-                          name={'key'}
-                          defaultValue={project?.key}
-                      />
-                      <FormControl>
-                          <InputLabel>Project type</InputLabel>
-                          <Select
-                              name={'type.id'}
-                              label={'Project type'}
-                              defaultValue={project?.type?.id}
-                          >
-                              {
-                                  data && data.map(type => (
-                                      <MenuItem key={type.id} value={type.id}>{type.name}</MenuItem>
-                                  ))
-                              }
-                          </Select>
-                      </FormControl>
-                  </Box>
-              </DialogContent>
-              <DialogActions>
-                  <Box display={'flex'} gap={2}>
-                      <Button onClick={onCancel}>Cancel</Button>
-                      <Button type={'submit'}>Create</Button>
-                  </Box>
-              </DialogActions>
-          </form>
-      </Dialog>
+      <FormDialog type={'project'} mutation={mutation} item={project} onCancel={onCancel}>
+          <Box display={'flex'} gap={3} flexDirection={'column'}>
+              <TextField
+                  label={'Name'}
+                  name={'name'}
+                  defaultValue={project?.name}
+              />
+              <TextField
+                  label={'Key'}
+                  name={'key'}
+                  defaultValue={project?.key}
+              />
+              <FormControl>
+                  <InputLabel>Project type</InputLabel>
+                  <Select
+                      name={'type.id'}
+                      label={'Project type'}
+                      defaultValue={project?.type?.id}
+                  >
+                      {
+                          data && data.map(type => (
+                              <MenuItem key={type.id} value={type.id}>{type.name}</MenuItem>
+                          ))
+                      }
+                  </Select>
+              </FormControl>
+          </Box>
+      </FormDialog>
   )
 }
 
