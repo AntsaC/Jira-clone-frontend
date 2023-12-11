@@ -7,6 +7,11 @@ const routes = [
         icon: <Dashboard />
     },
     {
+        primary: 'Project',
+        path: 'project',
+        icon: <Dashboard />
+    },
+    {
         primary: 'Backlog',
         path: 'backlog',
         icon: <Dashboard />
