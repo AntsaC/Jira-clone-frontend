@@ -12,11 +12,16 @@ const BacklogItem = ({card}) => {
     onSuccess: updatedStory => {
         const cards = queryClient.getQueryData(ProjectService.createKeyByProject('backlog'));
         const updatedCards = cards.map(story => {
-            if(story.id === updatedStory.id)
+            if(story.id === updatedStory.id) {
+                if(story.storyPoint !== updatedStory.storyPoint) {
+                    queryClient.invalidateQueries(ProjectService.createKeyByProject('backlog-point'))
+                }
                 return updatedStory;
+            }
             return story;
         });
         queryClient.setQueryData(ProjectService.createKeyByProject('backlog'), updatedCards);
+        
     }
   })
 

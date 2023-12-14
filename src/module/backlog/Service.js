@@ -7,8 +7,14 @@ const getByProjectQuery = (projectId) => (
     }
 )
 
+const getPointByProjectQuery = (projectId) => ({
+    queryKey: ['backlog-point', projectId],
+    queryFn: () => apiClient.get(`projects/${projectId}/point`).then(resp => resp.data)
+})
+
 const BacklogService = {
-    getByProjectQuery
+    getByProjectQuery,
+    getPointByProjectQuery
 }
 
 export default BacklogService;
