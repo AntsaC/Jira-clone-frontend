@@ -15,11 +15,13 @@ const ProjectDataGrid = ({project, onEditProject}) => {
             filterable: true
         },
         {
+            field: 'type',
             valueGetter: (params) => params.row.type.name,
             headerName: 'Type'
         },
         {
-            valueGetter: (params) => params.row.type.name,
+            field: 'lead',
+            valueGetter: (params) => params.row.lead.username,
             headerName: 'Lead'
         },
         {
