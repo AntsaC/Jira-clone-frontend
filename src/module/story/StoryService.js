@@ -6,7 +6,7 @@ const createStory = (projectId, cards) => {
         summary: '',
         previous: lastStory
     }
-    return apiClient.post(`projects/${projectId}/user-stories`, newStory);
+    return apiClient.post(`projects/${projectId}/user-stories`, newStory).then(resp => resp.data);
 }
 
 const partialUpdateStory = (storyId, partialStory) => 

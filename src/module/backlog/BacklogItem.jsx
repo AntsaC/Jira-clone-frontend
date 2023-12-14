@@ -23,7 +23,7 @@ const BacklogItem = ({card}) => {
   return (
       <TableRow>
           <TableCell width={100}>
-              PROJ-1
+              PROJ-{card.id}
           </TableCell>
           <EditableCell intialValue={card.summary} onFinished={(value) => mutation.mutate({property: 'summary', value: value})} />
           <TableCell width={150}>

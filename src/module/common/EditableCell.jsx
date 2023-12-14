@@ -6,6 +6,12 @@ const EditableCell = ({intialValue, onFinished}) => {
     const [isEdited, setIsEdited] = useState(false);
     const [currentValue, setCurrentValue] = useState(intialValue);
 
+    function handleOnFinished() {
+        setIsEdited(false);
+        if(intialValue != currentValue) 
+            onFinished(currentValue)
+    }
+
     return (
         <TableCell onClick={() => setIsEdited(true)}>
             {
@@ -16,7 +22,7 @@ const EditableCell = ({intialValue, onFinished}) => {
                     fullWidth
                     value={currentValue}
                     onChange={(e) => setCurrentValue(e.target.value)}
-                    onBlur={() => {setIsEdited(false); onFinished(currentValue) }}
+                    onBlur={handleOnFinished}
                   />
                 : currentValue
             }
