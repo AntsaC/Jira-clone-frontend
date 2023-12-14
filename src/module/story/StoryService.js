@@ -9,12 +9,16 @@ const createStory = (projectId, cards) => {
     return apiClient.post(`projects/${projectId}/user-stories`, newStory);
 }
 
+const partialUpdateStory = (storyId, partialStory) => 
+apiClient.patch(`user-stories/${storyId}`, partialStory).then(resp => resp.data);
+
 const getLastStory = (cards) => {
     return cards[cards.length - 1];
 }
 
 const StoryService = {
-    createStory
+    createStory,
+    partialUpdateStory
 }
 
 export default StoryService;
