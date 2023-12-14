@@ -1,9 +1,9 @@
-import {TableCell, TableRow, TextField} from "@mui/material";
+import {TableCell, TableRow} from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import PropTypes from "prop-types";
-import { useRef, useState } from "react";
 import StoryService from "../story/StoryService";
 import queryClient from "../../config/query-client";
+import EditableCell from "../common/EditableCell";
 
 const BacklogItem = ({card}) => {
   const mutation = useMutation({
@@ -35,28 +35,6 @@ const BacklogItem = ({card}) => {
           <TableCell width={200}>Assigned</TableCell>
       </TableRow>
   )
-}
-
-const EditableCell = ({intialValue, onFinished}) => {
-    const [isEdited, setIsEdited] = useState(false);
-    const [currentValue, setCurrentValue] = useState(intialValue);
-
-    return (
-        <TableCell onClick={() => setIsEdited(true)}>
-            {
-                isEdited
-                ? <TextField
-                    autoFocus
-                    size="small"
-                    fullWidth
-                    value={currentValue}
-                    onChange={(e) => setCurrentValue(e.target.value)}
-                    onBlur={() => {setIsEdited(false); onFinished(currentValue) }}
-                  />
-                : currentValue
-            }
-          </TableCell>   
-    )
 }
 
 BacklogItem.propTypes = {
