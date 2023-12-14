@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {CircularProgress} from "@mui/material";
 import Box from "@mui/material/Box";
 
-const MyDataGrid = ({rows, cols}) => {
+const MyDataGrid = ({rows, cols, onSelectedRow}) => {
 
     cols.forEach(col => {
         if(!col.width) {
@@ -20,7 +20,7 @@ const MyDataGrid = ({rows, cols}) => {
   return (
       <Box marginTop={2}>
           {
-           rows ? (<DataGrid columns={cols} rows={rows} />) : (<CircularProgress />)
+           rows ? (<DataGrid columns={cols} rows={rows} onRowSelectionModelChange={onSelectedRow} />) : (<CircularProgress />)
           }
       </Box>
   )

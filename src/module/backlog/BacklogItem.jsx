@@ -4,18 +4,19 @@ import PropTypes from "prop-types";
 import StoryService from "../story/StoryService";
 import queryClient from "../../config/query-client";
 import EditableCell from "../common/EditableCell";
+import ProjectService from "../project/Service";
 
 const BacklogItem = ({card}) => {
   const mutation = useMutation({
     mutationFn: (partialStory) => StoryService.partialUpdateStory(card.id, partialStory),
     onSuccess: updatedStory => {
-        const cards = queryClient.getQueryData(['backlog', 1]);
+        const cards = queryClient.getQueryData(ProjectService.createKeyByProject('backlog'));
         const updatedCards = cards.map(story => {
             if(story.id === updatedStory.id)
                 return updatedStory;
             return story;
         });
-        queryClient.setQueryData(['backlog', 1], updatedCards);
+        queryClient.setQueryData(ProjectService.createKeyByProject('backlog'), updatedCards);
     }
   })
 
@@ -30,7 +31,7 @@ const BacklogItem = ({card}) => {
               {card.status?.name}
           </TableCell>
           <EditableCell 
-            intialValue={card.storyPoint} 
+            intialValue={card.storyPoint ?? '_'} 
             onFinished={(value) => mutation.mutate({property: 'storyPoint', value: value})} 
             width={100}
             type={"number"}

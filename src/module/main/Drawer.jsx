@@ -12,9 +12,10 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {Outlet} from "react-router-dom";
+import {Outlet, useParams} from "react-router-dom";
 import routes from "./Routes.jsx";
 import NavItem from "./NavItem.jsx";
+import ProjectService from '../project/Service.js';
 
 const drawerWidth = 240;
 
@@ -64,8 +65,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft() {
+    const {key} = useParams(); 
+    //const project = ProjectService.getProjectByKey(key)
+
     const theme = useTheme();
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(key);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -80,7 +84,9 @@ export default function PersistentDrawerLeft() {
             <CssBaseline />
             <AppBar position="fixed" open={open}>
                 <Toolbar>
-                    <IconButton
+                    {
+                        key && (
+<IconButton
                         color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
@@ -89,8 +95,9 @@ export default function PersistentDrawerLeft() {
                     >
                         <MenuIcon />
                     </IconButton>
+                        )
+                    }
                     <Typography variant="h6" noWrap component="div">
-                        Persistent drawer
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -107,7 +114,10 @@ export default function PersistentDrawerLeft() {
                 anchor="left"
                 open={open}
             >
-                <DrawerHeader>
+                {
+                    key && (
+                        <>
+                            <DrawerHeader>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
@@ -115,11 +125,14 @@ export default function PersistentDrawerLeft() {
                 <Divider />
                 <List>
                     {
-                        routes.map(route => (
+                        routes(key).map(route => (
                             <NavItem key={route.primary} {...route} />
                         ))
                     }
                 </List>
+                        </>       
+                    )
+                }
             </Drawer>
             <Main sx={{paddingX: 4, paddingY: 1}} open={open}>
                 <DrawerHeader />

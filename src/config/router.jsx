@@ -17,7 +17,7 @@ const router = createBrowserRouter([
                 element: <ProjectPage />
             },
             {
-                path: 'backlog',
+                path: 'project/:key/backlog',
                 element: <BacklogPage />
             },
         ]

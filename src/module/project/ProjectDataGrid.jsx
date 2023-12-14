@@ -1,8 +1,12 @@
 import MyDataGrid from "../common/MyDataGrid.jsx";
 import PropTypes from "prop-types";
 import ActionBar from "../common/ActionBar.jsx";
+import { useNavigate } from "react-router-dom";
+import ProjectService from "./Service.js";
 
 const ProjectDataGrid = ({project, onEditProject}) => {
+    const navigate = useNavigate();
+
     const cols = [
         {
             field: 'key',
@@ -33,7 +37,13 @@ const ProjectDataGrid = ({project, onEditProject}) => {
         }
     ]
 
-  return <MyDataGrid rows={project} cols={cols} />
+    function handleOnRowselected(row) {
+        const currentProject = project[row[0] - 1]; 
+        ProjectService.setCurrentProject(currentProject)
+        navigate(currentProject.key+'/backlog')
+    }
+
+  return <MyDataGrid rows={project} cols={cols} onSelectedRow={handleOnRowselected} />
 }
 
 ProjectDataGrid.propTypes = {

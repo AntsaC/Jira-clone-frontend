@@ -5,6 +5,9 @@ import queryClient from "../../config/query-client.js";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import BacklogService from "./Service.js";
 import StoryService from "../story/StoryService.js";
+import ProjectService from "../project/Service.js";
+import useProject from "../../lib/hook/useProject.js";
+import { useParams } from "react-router-dom";
 
 const BacklogDataList = ({cards}) => {
 
@@ -23,12 +26,13 @@ const BacklogDataList = ({cards}) => {
 }
 
 function BacklogAddButton() {
-    const data = queryClient.getQueryData(['backlog', 1]);
+    const project = useProject();
+    const data = queryClient.getQueryData(['backlog',project.id]);
 
     const mutation = useMutation({
         mutationFn: () => StoryService.createStory(1, data),
         onSuccess: (story) => {
-            queryClient.setQueryData(['backlog', 1], [...data, story]) 
+            queryClient.setQueryData(['backlog',project.id], [...data, story]) 
         }
     })
     

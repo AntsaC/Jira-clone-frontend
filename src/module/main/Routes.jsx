@@ -1,9 +1,9 @@
 import {Dashboard} from "@mui/icons-material";
 
-const routes = [
+const createRoutes = (currentProject) => ([
     {
         primary: 'Dashboard',
-        path: 'project',
+        path: createProjectChildrenPath(currentProject, 'dashboard'),
         icon: <Dashboard />
     },
     {
@@ -13,10 +13,15 @@ const routes = [
     },
     {
         primary: 'Backlog',
-        path: 'backlog',
+        path: createProjectChildrenPath(currentProject, 'backlog'),
         icon: <Dashboard />
     },
-]
+]);
 
-export default routes;
+
+function createProjectChildrenPath(projectKey, path) {
+    return `project/${projectKey}/${path}`;
+}
+
+export default createRoutes;
 
