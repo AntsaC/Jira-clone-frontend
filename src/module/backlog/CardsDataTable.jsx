@@ -1,38 +1,37 @@
 import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableRow} from "@mui/material";
-import BacklogItem from "./BacklogItem.jsx";
+import StoryCardItem from "./StoryCardItem.jsx";
 import { Add } from "@mui/icons-material";
 import queryClient from "../../config/query-client.js";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import BacklogService from "./Service.js";
+import { useMutation } from "@tanstack/react-query";
 import StoryService from "../story/StoryService.js";
-import ProjectService from "../project/Service.js";
 import useProject from "../../lib/hook/useProject.js";
-import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import KeyContext from "../common/KeyContext.js";
 
-const BacklogDataList = ({cards}) => {
+const CardsDataTable = ({cards}) => {
 
   return (
       <TableContainer component={Paper}>
           <Table>
               <TableBody>
                   {cards.map(card => (
-                    <BacklogItem key={card.id} card={card} />
+                    <StoryCardItem key={card.id} card={card} />
                   ))}
-                  <BacklogAddButton />
+                  <BacklogAddButton  cards={cards}/>
               </TableBody>
           </Table>
       </TableContainer>
   )
 }
 
-function BacklogAddButton() {
+function BacklogAddButton({cards}) {
     const project = useProject();
-    const data = queryClient.getQueryData(['backlog',project.id]);
+    const key = useContext(KeyContext);
 
     const mutation = useMutation({
-        mutationFn: () => StoryService.createStory(1, data),
+        mutationFn: () => StoryService.createStory(project.id, cards),
         onSuccess: (story) => {
-            queryClient.setQueryData(['backlog',project.id], [...data, story]) 
+            queryClient.setQueryData(key, [...cards, story]) 
         }
     })
     
@@ -46,4 +45,4 @@ function BacklogAddButton() {
 }
 
 
-export default BacklogDataList;
+export default CardsDataTable;

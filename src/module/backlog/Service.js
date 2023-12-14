@@ -8,7 +8,7 @@ const getByProjectQuery = (projectId) => (
 )
 
 const getPointByProjectQuery = (projectId) => ({
-    queryKey: ['backlog-point', projectId],
+    queryKey: ['backlog', projectId, 'point'],
     queryFn: () => apiClient.get(`projects/${projectId}/point`).then(resp => resp.data)
 })
 

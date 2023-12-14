@@ -4,27 +4,29 @@ import PropTypes from "prop-types";
 import StoryService from "../story/StoryService";
 import queryClient from "../../config/query-client";
 import EditableCell from "../common/EditableCell";
-import ProjectService from "../project/Service";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
+import KeyContext from "../common/KeyContext";
 
-const BacklogItem = ({card}) => {
+const StoryCardItem = ({card}) => {
   const {key} = useParams();  
+  const queryKey = useContext(KeyContext);
+
   const mutation = useMutation({
     mutationFn: (partialStory) => StoryService.partialUpdateStory(card.id, partialStory),
     onSuccess: updatedStory => {
-        const cards = queryClient.getQueryData(ProjectService.createKeyByProject('backlog'));
+        const cards = queryClient.getQueryData(queryKey);
         const updatedCards = cards.map(story => {
             if(story.id === updatedStory.id) {
                 console.log(story);
                 if(story.storyPoint !== updatedStory.storyPoint || story.status?.id !== updatedStory.status.id ) {
-                    queryClient.invalidateQueries(ProjectService.createKeyByProject('backlog-point'))
+                    queryClient.invalidateQueries([queryKey, 'point'])
                 }
                 return updatedStory;
             }
             return story;
         });
-        queryClient.setQueryData(ProjectService.createKeyByProject('backlog'), updatedCards);
+        queryClient.setQueryData(queryKey, updatedCards);
         
     }
   })
@@ -72,8 +74,8 @@ const BacklogItem = ({card}) => {
   )
 }
 
-BacklogItem.propTypes = {
+StoryCardItem.propTypes = {
     card: PropTypes.object
 }
 
-export default BacklogItem;
+export default StoryCardItem;

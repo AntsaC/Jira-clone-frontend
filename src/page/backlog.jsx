@@ -1,11 +1,12 @@
 import Title from "../module/common/Title.jsx";
 import Box from "@mui/material/Box";
-import BacklogDataList from "../module/backlog/BacklogDataList.jsx";
+import CardsDataTable from "../module/backlog/CardsDataTable.jsx";
 import {useQuery} from "@tanstack/react-query";
 import BacklogService from "../module/backlog/Service.js";
 import {CircularProgress} from "@mui/material";
 import useProject from "../lib/hook/useProject.js";
 import StoryCardsToolBar from "../module/backlog/StoryCardsToolBar.jsx";
+import KeyContext from "../module/common/KeyContext.js";
 
 const BacklogPage = () => {
   const project = useProject();
@@ -19,7 +20,9 @@ const BacklogPage = () => {
           data
           ? <>
               <StoryCardsToolBar cards={data} score={score} />
-              <BacklogDataList cards={data} />
+              <KeyContext.Provider value={['backlog', project.id]}>
+                <CardsDataTable cards={data}  />
+              </KeyContext.Provider>
             </>
           : <CircularProgress />
       }

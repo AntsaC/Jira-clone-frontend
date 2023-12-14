@@ -4,7 +4,8 @@ const createStory = (projectId, cards) => {
     const lastStory = getLastStory(cards);
     const newStory = {
         summary: '',
-        previous: lastStory
+        previous: lastStory,
+        sprint: lastStory.sprint
     }
     return apiClient.post(`projects/${projectId}/user-stories`, newStory).then(resp => resp.data);
 }
