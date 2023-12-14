@@ -2,7 +2,7 @@ import { TableCell, TextField } from "@mui/material";
 import { useState } from "react";
 
 
-const EditableCell = ({intialValue, onFinished}) => {
+const EditableCell = ({intialValue, onFinished, width, type}) => {
     const [isEdited, setIsEdited] = useState(false);
     const [currentValue, setCurrentValue] = useState(intialValue);
 
@@ -13,7 +13,7 @@ const EditableCell = ({intialValue, onFinished}) => {
     }
 
     return (
-        <TableCell onClick={() => setIsEdited(true)}>
+        <TableCell width={width} onClick={() => setIsEdited(true)}>
             {
                 isEdited
                 ? <TextField
@@ -23,6 +23,7 @@ const EditableCell = ({intialValue, onFinished}) => {
                     value={currentValue}
                     onChange={(e) => setCurrentValue(e.target.value)}
                     onBlur={handleOnFinished}
+                    type={type}
                   />
                 : currentValue
             }

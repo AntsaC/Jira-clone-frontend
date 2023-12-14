@@ -29,9 +29,12 @@ const BacklogItem = ({card}) => {
           <TableCell width={150}>
               {card.status?.name}
           </TableCell>
-          <TableCell width={100}>
-              {card.storyPoint}
-          </TableCell >
+          <EditableCell 
+            intialValue={card.storyPoint} 
+            onFinished={(value) => mutation.mutate({property: 'storyPoint', value: value})} 
+            width={100}
+            type={"number"}
+          />
           <TableCell width={200}>Assigned</TableCell>
       </TableRow>
   )
