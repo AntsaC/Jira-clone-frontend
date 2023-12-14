@@ -16,9 +16,15 @@ const getLastStory = (cards) => {
     return cards[cards.length - 1];
 }
 
+const getAllStatusQuery = {
+    queryKey: ['stories-status'],
+    queryFn: () => apiClient.get('api/story_statuses').then(resp => resp.data['hydra:member'])
+}
+
 const StoryService = {
     createStory,
-    partialUpdateStory
+    partialUpdateStory,
+    getAllStatusQuery
 }
 
 export default StoryService;
