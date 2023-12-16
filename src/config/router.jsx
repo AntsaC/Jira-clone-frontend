@@ -2,6 +2,7 @@ import {createBrowserRouter} from "react-router-dom";
 import App from "../page/main/App.jsx";
 import ProjectPage from "../page/project.jsx";
 import BacklogPage from "../page/backlog.jsx";
+import SprintPage from "../page/sprint.jsx";
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
             {
                 path: 'project/:key/backlog',
                 element: <BacklogPage />
+            },
+            {
+                path: 'project/:key/sprint',
+                element: <SprintPage />
             },
         ]
     }

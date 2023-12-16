@@ -16,6 +16,11 @@ const createRoutes = (currentProject) => ([
         path: createProjectChildrenPath(currentProject, 'backlog'),
         icon: <Dashboard />
     },
+    {
+        primary: 'Sprint',
+        path: createProjectChildrenPath(currentProject, 'sprint'),
+        icon: <Dashboard />
+    },
 ]);
 
 
