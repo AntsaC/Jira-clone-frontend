@@ -1,3 +1,4 @@
+import { Chip } from "@mui/material"
 import ActionBar from "../common/ActionBar"
 import MyDataGrid from "../common/MyDataGrid"
 
@@ -20,7 +21,10 @@ export default function SprintDataTable({sprints}) {
         },
         {
             field: 'status',
-            headerName: 'Status'
+            headerName: 'Status',
+            renderCell: (params) => (
+                <Chip label={params.row.status} sx={{width: 100}} />
+            )
         },
         {
             field: 'action',
