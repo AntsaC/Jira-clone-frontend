@@ -33,11 +33,17 @@ const moveOn = async ({sprint, stories, queryKey}) => {
     }
 }
 
+const getAllBySprintQuery = (sprint) => ({
+  queryKey: ['sprint', sprint, 'stories'],
+  queryFn: () => apiClient.get(`sprints/${sprint}/stories`).then(resp => resp.data)  
+})
+
 const StoryService = {
     createStory,
     partialUpdateStory,
     getAllStatusQuery,
-    moveOn
+    moveOn,
+    getAllBySprintQuery
 }
 
 export default StoryService;

@@ -3,6 +3,7 @@ import App from "../page/main/App.jsx";
 import ProjectPage from "../page/project.jsx";
 import BacklogPage from "../page/backlog.jsx";
 import SprintPage from "../page/sprint.jsx";
+import SprintDetailPage from "../page/sprint/detail.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "project/:key/sprint",
         element: <SprintPage />,
+      },
+      {
+        path: "project/:key/sprint/:id",
+        element: <SprintDetailPage />,
       },
     ],
   },

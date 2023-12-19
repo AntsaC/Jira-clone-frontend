@@ -12,6 +12,8 @@ import { useContext } from "react";
 import KeyContext from "../common/KeyContext";
 
 const StoryCardsToolBar = ({ cards, score }) => {
+  const selected = useSelected();
+
   return (
     <Box display={"flex"} justifyContent={"space-between"}>
       <h5>
@@ -25,7 +27,7 @@ const StoryCardsToolBar = ({ cards, score }) => {
           <Chip label={score?.in_progress} color="info" />
           <Chip label={score?.done} color="success" />
         </Stack>
-        <MoveOnButton />
+        {selected && <MoveOnButton />}
       </Stack>
     </Box>
   );

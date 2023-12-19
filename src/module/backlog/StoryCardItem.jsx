@@ -50,7 +50,7 @@ const StoryCardItem = ({ card }) => {
 
   const selectionDispatch = useSelectedDispatch();
   const selected = useSelected();
-  const isSelected = selected.includes(card.id);
+  const isSelected = selected?.includes(card.id);
 
   const handleOnSelected = () => {
     selectionDispatch({
@@ -62,7 +62,9 @@ const StoryCardItem = ({ card }) => {
   return (
     <TableRow>
       <TableCell width={50}>
-        <Checkbox onClick={handleOnSelected} checked={isSelected} />
+        {selected && (
+          <Checkbox onClick={handleOnSelected} checked={isSelected} />
+        )}
       </TableCell>
       <TableCell width={100}>
         {key}-{card.id}
