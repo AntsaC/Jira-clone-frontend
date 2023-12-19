@@ -30,6 +30,8 @@ const moveOn = async ({sprint, stories, queryKey}) => {
         currentStories = currentStories.filter(story => !stories.includes(story.id));
         queryClient.setQueryData(queryKey, currentStories);
         queryClient.invalidateQueries([queryKey, 'point'])
+        queryClient.invalidateQueries(['sprint', sprint,'stories']);
+        queryClient.invalidateQueries(['sprint', sprint,'point']);
     }
 }
 
