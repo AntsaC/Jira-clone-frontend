@@ -11,6 +11,9 @@ function selectionReducer(selected, action) {
     case "unselected": {
       return selected.filter((item) => item != action.item);
     }
+    case "init": {
+      return [];
+    }
     default:
       break;
   }

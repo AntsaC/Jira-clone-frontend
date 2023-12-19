@@ -3,6 +3,13 @@ import BasicMenu from "../common/BasicMenu";
 import { useQuery } from "@tanstack/react-query";
 import SprintService from "../sprint/service";
 import useProject from "../../lib/hook/useProject";
+import StoryService from "../story/StoryService";
+import {
+  useSelected,
+  useSelectedDispatch,
+} from "../common/provider/SelectionProvider";
+import { useContext } from "react";
+import KeyContext from "../common/KeyContext";
 
 const StoryCardsToolBar = ({ cards, score }) => {
   return (
@@ -29,12 +36,26 @@ function MoveOnButton() {
   const { data } = useQuery(
     SprintService.allByProjectQuery(project.id, "status=ongoing")
   );
+  const selected = useSelected();
+  const selectedDispatch = useSelectedDispatch();
+  const queryKey = useContext(KeyContext);
 
   const mapSprintsData = () => {
     if (data) {
       return data.map((item) => {
         return {
           label: item.sprint.name,
+          onClick: () => {
+            StoryService.moveOn({
+              sprint: item.sprint.id,
+              stories: selected,
+              queryKey: queryKey,
+            }).then(() => {
+              selectedDispatch({
+                type: "init",
+              });
+            });
+          },
         };
       });
     }

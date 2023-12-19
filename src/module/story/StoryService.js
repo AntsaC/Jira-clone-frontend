@@ -1,4 +1,5 @@
 import apiClient from "../../config/api-client";
+import queryClient from "../../config/query-client";
 
 const createStory = (projectId, cards) => {
     const lastStory = getLastStory(cards);
@@ -22,10 +23,21 @@ const getAllStatusQuery = {
     queryFn: () => apiClient.get('api/story_statuses').then(resp => resp.data['hydra:member'])
 }
 
+const moveOn = async ({sprint, stories, queryKey}) => {
+    const resp = await apiClient.put('user-stories/move', {sprint, stories});
+    if(resp.status == 204) {
+        let currentStories = queryClient.getQueryData(queryKey);
+        currentStories = currentStories.filter(story => !stories.includes(story.id));
+        queryClient.setQueryData(queryKey, currentStories);
+        queryClient.invalidateQueries([queryKey, 'point'])
+    }
+}
+
 const StoryService = {
     createStory,
     partialUpdateStory,
-    getAllStatusQuery
+    getAllStatusQuery,
+    moveOn
 }
 
 export default StoryService;

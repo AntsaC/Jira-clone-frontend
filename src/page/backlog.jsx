@@ -20,8 +20,8 @@ const BacklogPage = () => {
   if (data) {
     renderedElement = (
       <SelectionProvider>
-        <StoryCardsToolBar cards={data} score={score} />
         <KeyContext.Provider value={["backlog", project.id]}>
+          <StoryCardsToolBar cards={data} score={score} />
           <CardsDataTable cards={data} />
         </KeyContext.Provider>
       </SelectionProvider>
