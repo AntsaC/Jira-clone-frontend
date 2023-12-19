@@ -1,5 +1,8 @@
 import { Box, Chip, Stack } from "@mui/material";
 import BasicMenu from "../common/BasicMenu";
+import { useQuery } from "@tanstack/react-query";
+import SprintService from "../sprint/service";
+import useProject from "../../lib/hook/useProject";
 
 const StoryCardsToolBar = ({ cards, score }) => {
   return (
@@ -22,23 +25,22 @@ const StoryCardsToolBar = ({ cards, score }) => {
 };
 
 function MoveOnButton() {
-  return (
-    <BasicMenu
-      id={"move"}
-      primary={"Move on"}
-      items={[
-        {
-          label: "Sprint 1",
-        },
-        {
-          label: "Sprint 2",
-        },
-        {
-          label: "Sprint 3",
-        },
-      ]}
-    />
+  const project = useProject();
+  const { data } = useQuery(
+    SprintService.allByProjectQuery(project.id, "status=ongoing")
   );
+
+  const mapSprintsData = () => {
+    if (data) {
+      return data.map((item) => {
+        return {
+          label: item.sprint.name,
+        };
+      });
+    }
+  };
+
+  return <BasicMenu id={"move"} primary={"Move on"} items={mapSprintsData()} />;
 }
 
 export default StoryCardsToolBar;

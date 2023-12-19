@@ -35,17 +35,18 @@ export default function BasicMenu({ id, primary, items }) {
           "aria-labelledby": `basic-button-${id}`,
         }}
       >
-        {items.map((item) => (
-          <MenuItem
-            key={item.label}
-            onClick={() => {
-              item.onClick();
-              handleClose();
-            }}
-          >
-            {item.label}
-          </MenuItem>
-        ))}
+        {items &&
+          items.map((item) => (
+            <MenuItem
+              key={item.label}
+              onClick={() => {
+                item.onClick();
+                handleClose();
+              }}
+            >
+              {item.label}
+            </MenuItem>
+          ))}
       </Menu>
     </div>
   );
