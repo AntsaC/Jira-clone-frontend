@@ -1,4 +1,5 @@
 import { Box, Chip, Stack } from "@mui/material";
+import BasicMenu from "../common/BasicMenu";
 
 const StoryCardsToolBar = ({ cards, score }) => {
   return (
@@ -14,9 +15,30 @@ const StoryCardsToolBar = ({ cards, score }) => {
           <Chip label={score?.in_progress} color="info" />
           <Chip label={score?.done} color="success" />
         </Stack>
+        <MoveOnButton />
       </Stack>
     </Box>
   );
 };
+
+function MoveOnButton() {
+  return (
+    <BasicMenu
+      id={"move"}
+      primary={"Move on"}
+      items={[
+        {
+          label: "Sprint 1",
+        },
+        {
+          label: "Sprint 2",
+        },
+        {
+          label: "Sprint 3",
+        },
+      ]}
+    />
+  );
+}
 
 export default StoryCardsToolBar;
