@@ -2,7 +2,7 @@ import { ExpandMore } from "@mui/icons-material";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { useState } from "react";
 
-export default function BasicMenu({ id, primary, items }) {
+export default function BasicMenu({ id, primary, items, props }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -23,6 +23,7 @@ export default function BasicMenu({ id, primary, items }) {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
         endIcon={<ExpandMore />}
+        {...props}
       >
         {primary}
       </Button>

@@ -63,7 +63,16 @@ function MoveOnButton() {
     }
   };
 
-  return <BasicMenu id={"move"} primary={"Move on"} items={mapSprintsData()} />;
+  return (
+    <BasicMenu
+      id={"move"}
+      primary={"Move on"}
+      items={mapSprintsData()}
+      props={{
+        disabled: selected.length === 0,
+      }}
+    />
+  );
 }
 
 export default StoryCardsToolBar;
