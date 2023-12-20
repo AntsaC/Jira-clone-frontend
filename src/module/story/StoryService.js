@@ -40,12 +40,26 @@ const getAllBySprintQuery = (sprint) => ({
   queryFn: () => apiClient.get(`sprints/${sprint}/stories`).then(resp => resp.data)  
 })
 
+const getColorByStatus = (storyStatus) => {
+    switch (storyStatus) {
+        case 'TODO':
+            return "grey"
+        case 'IN PROGRESS':
+            return "blue"
+        case 'DONE':
+            return "green"
+        default:
+            break;
+    }
+};
+
 const StoryService = {
     createStory,
     partialUpdateStory,
     getAllStatusQuery,
     moveOn,
-    getAllBySprintQuery
+    getAllBySprintQuery,
+    getColorByStatus
 }
 
 export default StoryService;

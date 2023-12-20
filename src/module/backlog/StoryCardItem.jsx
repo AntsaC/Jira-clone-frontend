@@ -1,4 +1,11 @@
-import { Checkbox, MenuItem, Select, TableCell, TableRow } from "@mui/material";
+import {
+  Checkbox,
+  MenuItem,
+  Select,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 import StoryService from "../story/StoryService";
@@ -85,7 +92,9 @@ const StoryCardItem = ({ card }) => {
           {statuses &&
             statuses.map((s) => (
               <MenuItem key={s.id} value={s.id}>
-                {s.name}
+                <Typography color={StoryService.getColorByStatus(s.name)}>
+                  {s.name}
+                </Typography>
               </MenuItem>
             ))}
         </Select>
