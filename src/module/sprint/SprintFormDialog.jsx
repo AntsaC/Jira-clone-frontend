@@ -16,7 +16,7 @@ export default function SprintDialog({ sprint, onCancel }) {
       ),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: SprintService.allByProjectQuery(project.id).queryKey,
+        queryKey: ["sprints", project.id],
       });
       onCancel();
     },
