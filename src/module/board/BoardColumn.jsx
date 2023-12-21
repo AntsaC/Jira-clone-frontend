@@ -1,4 +1,5 @@
-import { Avatar, Card, CardContent, Stack, Typography } from "@mui/material";
+import { Card, CardContent, Stack, Typography } from "@mui/material";
+import BoardItem from "./BoardItem";
 
 export default function BoardColumn({ column }) {
   return (
@@ -11,25 +12,6 @@ export default function BoardColumn({ column }) {
           {column.cards?.map((story) => (
             <BoardItem key={story.id} story={story} />
           ))}
-        </Stack>
-      </CardContent>
-    </Card>
-  );
-}
-
-function BoardItem({ story }) {
-  return (
-    <Card>
-      <CardContent>
-        {story.summary}
-        <Stack
-          direction={"row"}
-          justifyContent={"space-between"}
-          alignItems={"center"}
-          marginTop={1}
-        >
-          <h4 style={{ margin: 0 }}>ID</h4>
-          <Avatar sx={{ width: 36, height: 36 }} alt="Avatar" />
         </Stack>
       </CardContent>
     </Card>
