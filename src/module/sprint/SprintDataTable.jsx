@@ -1,17 +1,21 @@
 import { Chip } from "@mui/material";
 import ActionBar from "../common/ActionBar";
 import MyDataGrid from "../common/MyDataGrid";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-export default function SprintDataTable({ sprints }) {
+export default function SprintDataTable({ sprints, onEdit }) {
   const { key } = useParams();
-  const navigate = useNavigate();
 
   const cols = [
     {
       field: "name",
-      valueGetter: (params) => params.row.sprint.name,
       headerName: "Name",
+      onClick: () => alert("AIZA"),
+      renderCell: (params) => (
+        <Link to={`/project/${key}/sprint/${params.row.sprint.id}`}>
+          {params.row.sprint.name}
+        </Link>
+      ),
     },
     {
       field: "startDate",
@@ -33,22 +37,14 @@ export default function SprintDataTable({ sprints }) {
     {
       field: "action",
       headerName: "",
-      renderCell: () => <ActionBar />,
+      renderCell: (params) => (
+        <ActionBar onEdit={() => onEdit(params.row.sprint)} />
+      ),
       width: 150,
     },
   ];
 
-  const handleOnSelected = (row) => {
-    const id = row[0];
-    navigate(`/project/${key}/sprint/${id}`);
-  };
-
   return (
-    <MyDataGrid
-      cols={cols}
-      rows={sprints}
-      getRowId={(row) => row.sprint.id}
-      onSelectedRow={handleOnSelected}
-    />
+    <MyDataGrid cols={cols} rows={sprints} getRowId={(row) => row.sprint.id} />
   );
 }

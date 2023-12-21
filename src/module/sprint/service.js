@@ -17,10 +17,16 @@ const scoreBySprint = (sprint) => ({
     .then(resp => resp.data)
 })
 
+const submitSprint = (project, sprint) => 
+sprint.id
+? apiClient.put(`projects/${project}/sprints/${sprint.id}`, sprint)
+: apiClient.post(`projects/${project}/sprints`, sprint)
+
 const SprintService = {
     allByProjectQuery,
     oneQuery,
-    scoreBySprint
+    scoreBySprint,
+    submitSprint
 }
 
 
