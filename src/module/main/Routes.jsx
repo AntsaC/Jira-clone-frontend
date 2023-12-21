@@ -21,6 +21,11 @@ const createRoutes = (currentProject) => [
     path: createProjectChildrenPath(currentProject, "sprint"),
     icon: <QueryBuilder />,
   },
+  {
+    primary: "Board",
+    path: createProjectChildrenPath(currentProject, "board"),
+    icon: <QueryBuilder />,
+  },
 ];
 
 function createProjectChildrenPath(projectKey, path) {
