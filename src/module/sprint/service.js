@@ -22,11 +22,23 @@ sprint.id
 ? apiClient.put(`projects/${project}/sprints/${sprint.id}`, sprint)
 : apiClient.post(`projects/${project}/sprints`, sprint)
 
+const renderStatusColor = (status) => {
+    switch (status) {
+        case 'complete':
+            return 'success'
+        case 'future':
+            return 'info'
+        default:
+            break;
+    }
+}
+
 const SprintService = {
     allByProjectQuery,
     oneQuery,
     scoreBySprint,
-    submitSprint
+    submitSprint,
+    renderStatusColor
 }
 
 

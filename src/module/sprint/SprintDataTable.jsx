@@ -3,6 +3,7 @@ import ActionBar from "../common/ActionBar";
 import MyDataGrid from "../common/MyDataGrid";
 import { Link, useParams } from "react-router-dom";
 import { formatDate } from "../../lib/utils/DateUtils";
+import SprintService from "./service";
 
 export default function SprintDataTable({ sprints, onEdit }) {
   const { key } = useParams();
@@ -32,7 +33,12 @@ export default function SprintDataTable({ sprints, onEdit }) {
       field: "status",
       headerName: "Status",
       renderCell: (params) => (
-        <Chip label={params.row.status} sx={{ width: 100 }} />
+        <Chip
+          label={params.row.status}
+          sx={{ width: 100 }}
+          variant="outlined"
+          color={SprintService.renderStatusColor(params.row.status)}
+        />
       ),
     },
     {
