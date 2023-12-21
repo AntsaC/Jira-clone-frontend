@@ -1,10 +1,10 @@
 import { Avatar, Card, CardContent, Stack } from "@mui/material";
 import { useDrag } from "react-dnd";
 
-export default function BoardItem({ story }) {
+export default function BoardItem({ currentColumn, story }) {
   const [, drag] = useDrag({
     type: "story",
-    item: story,
+    item: { column: currentColumn, story },
   });
 
   return (
