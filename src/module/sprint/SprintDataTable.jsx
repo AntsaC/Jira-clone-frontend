@@ -2,6 +2,7 @@ import { Chip } from "@mui/material";
 import ActionBar from "../common/ActionBar";
 import MyDataGrid from "../common/MyDataGrid";
 import { Link, useParams } from "react-router-dom";
+import { formatDate } from "../../lib/utils/DateUtils";
 
 export default function SprintDataTable({ sprints, onEdit }) {
   const { key } = useParams();
@@ -19,12 +20,12 @@ export default function SprintDataTable({ sprints, onEdit }) {
     },
     {
       field: "startDate",
-      valueGetter: (params) => params.row.sprint.startDate,
+      valueGetter: (params) => formatDate(params.row.sprint.startDate),
       headerName: "Start date",
     },
     {
       field: "endDate",
-      valueGetter: (params) => params.row.sprint.endDate,
+      valueGetter: (params) => formatDate(params.row.sprint.endDate),
       headerName: "End Date",
     },
     {
