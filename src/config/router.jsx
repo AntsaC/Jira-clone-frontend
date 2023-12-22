@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         element: <SprintDetailPage />,
       },
       {
-        path: "project/:key/board",
+        path: "project/:key/board/:id",
         element: <BoardPage />,
       },
     ],

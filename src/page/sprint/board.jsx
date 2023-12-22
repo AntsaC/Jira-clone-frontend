@@ -1,51 +1,14 @@
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import Title from "../../module/common/Title";
 import BoardContainer from "../../module/board/BoardsContainer";
-import { useState } from "react";
-
-const data = {
-  columns: [
-    {
-      id: 1,
-      name: "TODO",
-      cards: [
-        {
-          id: 1,
-          summary: "First",
-        },
-        {
-          id: 2,
-          summary: "First 2",
-        },
-        {
-          id: 3,
-          summary: "First 3",
-        },
-        {
-          id: 4,
-          summary: "First",
-        },
-        {
-          id: 5,
-          summary: "First",
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "IN PROGRESS",
-      cards: [],
-    },
-    {
-      id: 3,
-      name: "DONE",
-      cards: [],
-    },
-  ],
-};
+import { useQuery } from "@tanstack/react-query";
+import BoardService from "../../module/board/BoardService";
+import { useParams } from "react-router-dom";
+import queryClient from "../../config/query-client";
 
 export default function BoardPage() {
-  const [board, setBoard] = useState(data);
+  const { id } = useParams();
+  const { data: board } = useQuery(BoardService.boardBySprint(id));
 
   const handleOnDrop = (column, item) => {
     const newBoard = { ...board };
@@ -55,13 +18,17 @@ export default function BoardPage() {
     prevColumn.cards = prevColumn.cards.filter(
       (story) => story.id != item.story.id
     );
-    setBoard(newBoard);
+    queryClient.setQueryData(BoardService.boardBySprint(id).queryKey, newBoard);
   };
 
   return (
     <Box>
       <Title title={"Sprint board"} />
-      <BoardContainer board={board} onDrop={handleOnDrop} />
+      {board ? (
+        <BoardContainer board={board} onDrop={handleOnDrop} />
+      ) : (
+        <CircularProgress />
+      )}
     </Box>
   );
 }
