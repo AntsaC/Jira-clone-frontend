@@ -4,6 +4,7 @@ import BoardContainer from "../../module/board/BoardsContainer";
 import { useQuery } from "@tanstack/react-query";
 import BoardService from "../../module/board/BoardService";
 import { useParams } from "react-router-dom";
+import StoryService from "../../module/story/StoryService";
 import queryClient from "../../config/query-client";
 
 export default function BoardPage() {
@@ -11,14 +12,36 @@ export default function BoardPage() {
   const { data: board } = useQuery(BoardService.boardBySprint(id));
 
   const handleOnDrop = (column, item) => {
-    const newBoard = { ...board };
-    column = newBoard.columns.find((c) => column.id === c.id);
-    column.cards.push(item.story);
-    const prevColumn = newBoard.columns.find((c) => c.id === item.column.id);
-    prevColumn.cards = prevColumn.cards.filter(
-      (story) => story.id != item.story.id
-    );
-    queryClient.setQueryData(BoardService.boardBySprint(id).queryKey, newBoard);
+    StoryService.partialUpdateStory(item.story.id, {
+      property: "status",
+      value: column.id,
+    }).then(() => {
+      queryClient.setQueryData(
+        BoardService.boardBySprint(id).queryKey,
+        (prevBoard) => {
+          let newColumns = prevBoard.columns.map((c) => {
+            if (c.id === column.id) {
+              return {
+                ...c,
+                cards: [...c.cards, item.story],
+              };
+            } else if (c.id === item.column.id) {
+              return {
+                ...c,
+                cards: c.cards.filter((s) => s.id !== item.story.id),
+              };
+            }
+            return c;
+          });
+          return {
+            columns: newColumns,
+          };
+        }
+      );
+      queryClient.invalidateQueries({
+        queryKey: ["sprint", id],
+      });
+    });
   };
 
   return (
