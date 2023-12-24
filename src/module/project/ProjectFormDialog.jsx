@@ -32,6 +32,7 @@ const ProjectFormDialog = ({ project, onCancel }) => {
       onCancel={onCancel}
     >
       <Box display={"flex"} gap={3} flexDirection={"column"}>
+        <input defaultValue={project?.id} name="id" type="hidden" />
         <TextField label={"Name"} name={"name"} defaultValue={project?.name} />
         <TextField label={"Key"} name={"key"} defaultValue={project?.key} />
         <FormControl>
@@ -39,7 +40,7 @@ const ProjectFormDialog = ({ project, onCancel }) => {
           <Select
             name={"type.id"}
             label={"Project type"}
-            value={project?.type?.id}
+            defaultValue={project?.type?.id}
           >
             {data &&
               data.map((type) => (

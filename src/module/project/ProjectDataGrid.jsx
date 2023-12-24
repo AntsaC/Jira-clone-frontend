@@ -25,7 +25,7 @@ const ProjectDataGrid = ({ project, onEditProject }) => {
     },
     {
       field: "lead",
-      valueGetter: (params) => params.row.lead.username,
+      valueGetter: (params) => params.row.lead?.username,
       headerName: "Lead",
     },
     {
