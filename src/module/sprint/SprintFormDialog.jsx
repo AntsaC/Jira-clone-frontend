@@ -2,21 +2,18 @@ import { Box, TextField } from "@mui/material";
 import FormDialog from "../common/FormDialog";
 import { useMutation } from "@tanstack/react-query";
 import SprintService from "./service";
-import useProject from "../../lib/hook/useProject";
 import FormDataUtil from "../../lib/utils/FormDataUtil";
 import queryClient from "../../config/query-client";
+import { useParams } from "react-router-dom";
 
 export default function SprintDialog({ sprint, onCancel }) {
-  const project = useProject();
+  const { key } = useParams();
   const mutation = useMutation({
     mutationFn: (event) =>
-      SprintService.submitSprint(
-        project.id,
-        FormDataUtil.extractFromEvent(event)
-      ),
+      SprintService.submitSprint(key, FormDataUtil.extractFromEvent(event)),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["sprints", project.id],
+        queryKey: ["sprints", key],
       });
       onCancel();
     },

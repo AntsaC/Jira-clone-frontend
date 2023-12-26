@@ -15,7 +15,7 @@ const ProjectDataGrid = ({ project, onEditProject }) => {
       headerName: "Name",
       filterable: true,
       renderCell: (params) => (
-        <Link to={`/project/${params.row.key}/backlog`}>{params.row.name}</Link>
+        <Link to={`/project/${params.row.id}/backlog`}>{params.row.name}</Link>
       ),
     },
     {

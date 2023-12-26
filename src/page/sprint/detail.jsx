@@ -2,7 +2,6 @@ import { Box, CircularProgress } from "@mui/material";
 import Title from "../../module/common/Title";
 import { useQuery } from "@tanstack/react-query";
 import SprintService from "../../module/sprint/service";
-import useProject from "../../lib/hook/useProject";
 import { useParams } from "react-router-dom";
 import StoryService from "../../module/story/StoryService";
 import KeyContext from "../../module/common/KeyContext";
@@ -10,9 +9,8 @@ import StoryCardsToolBar from "../../module/backlog/StoryCardsToolBar";
 import CardsDataTable from "../../module/backlog/CardsDataTable";
 
 const SprintDetailPage = () => {
-  const project = useProject();
-  const { id } = useParams();
-  const { data } = useQuery(SprintService.oneQuery(project.id, id));
+  const { id, key } = useParams();
+  const { data } = useQuery(SprintService.oneQuery(key, id));
   const { data: cards } = useQuery(StoryService.getAllBySprintQuery(id));
   const { data: score } = useQuery(SprintService.scoreBySprint(id));
 

@@ -12,9 +12,9 @@ import { Add } from "@mui/icons-material";
 import queryClient from "../../config/query-client.js";
 import { useMutation } from "@tanstack/react-query";
 import StoryService from "../story/StoryService.js";
-import useProject from "../../lib/hook/useProject.js";
 import { useContext } from "react";
 import KeyContext from "../common/KeyContext.js";
+import { useParams } from "react-router-dom";
 
 const CardsDataTable = ({ cards }) => {
   return (
@@ -32,11 +32,11 @@ const CardsDataTable = ({ cards }) => {
 };
 
 function BacklogAddButton({ cards }) {
-  const project = useProject();
+  const { key: projectId } = useParams();
   const key = useContext(KeyContext);
 
   const mutation = useMutation({
-    mutationFn: () => StoryService.createStory(project.id, cards),
+    mutationFn: () => StoryService.createStory(projectId, cards),
     onSuccess: (story) => {
       queryClient.setQueryData(key, [...cards, story]);
     },

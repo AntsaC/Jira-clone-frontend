@@ -4,23 +4,21 @@ import CardsDataTable from "../module/backlog/CardsDataTable.jsx";
 import { useQuery } from "@tanstack/react-query";
 import BacklogService from "../module/backlog/Service.js";
 import { CircularProgress } from "@mui/material";
-import useProject from "../lib/hook/useProject.js";
 import StoryCardsToolBar from "../module/backlog/StoryCardsToolBar.jsx";
 import KeyContext from "../module/common/KeyContext.js";
 import SelectionProvider from "../module/common/provider/SelectionProvider.jsx";
+import { useParams } from "react-router-dom";
 
 const BacklogPage = () => {
-  const project = useProject();
-  const { data } = useQuery(BacklogService.getByProjectQuery(project.id));
-  const { data: score } = useQuery(
-    BacklogService.getPointByProjectQuery(project.id)
-  );
+  const { key } = useParams();
+  const { data } = useQuery(BacklogService.getByProjectQuery(key));
+  const { data: score } = useQuery(BacklogService.getPointByProjectQuery(key));
 
   let renderedElement;
   if (data) {
     renderedElement = (
       <SelectionProvider>
-        <KeyContext.Provider value={["backlog", project.id]}>
+        <KeyContext.Provider value={["backlog", key]}>
           <StoryCardsToolBar cards={data} score={score} />
           <CardsDataTable cards={data} />
         </KeyContext.Provider>

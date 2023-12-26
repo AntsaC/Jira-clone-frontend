@@ -2,7 +2,6 @@ import { Box, Chip, Stack } from "@mui/material";
 import BasicMenu from "../common/BasicMenu";
 import { useQuery } from "@tanstack/react-query";
 import SprintService from "../sprint/service";
-import useProject from "../../lib/hook/useProject";
 import StoryService from "../story/StoryService";
 import {
   useSelected,
@@ -10,6 +9,7 @@ import {
 } from "../common/provider/SelectionProvider";
 import { useContext } from "react";
 import KeyContext from "../common/KeyContext";
+import { useParams } from "react-router-dom";
 
 const StoryCardsToolBar = ({ cards, score }) => {
   const selected = useSelected();
@@ -34,9 +34,9 @@ const StoryCardsToolBar = ({ cards, score }) => {
 };
 
 function MoveOnButton() {
-  const project = useProject();
+  const { key } = useParams();
   const { data } = useQuery(
-    SprintService.allByProjectQuery(project.id, "status=ongoing")
+    SprintService.allByProjectQuery(key, "status=ongoing")
   );
   const selected = useSelected();
   const selectedDispatch = useSelectedDispatch();
