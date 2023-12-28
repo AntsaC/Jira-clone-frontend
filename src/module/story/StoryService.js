@@ -1,12 +1,14 @@
 import apiClient from "../../config/api-client";
 import queryClient from "../../config/query-client";
 
-const createStory = (projectId, cards) => {
+const createStory = (projectId, cards, sprintId) => {
     const lastStory = getLastStory(cards);
     const newStory = {
         summary: '',
         previous: lastStory,
-        sprint: lastStory.sprint
+        sprint: {
+            id: Number(sprintId)
+        }
     }
     return apiClient.post(`projects/${projectId}/user-stories`, newStory).then(resp => resp.data);
 }

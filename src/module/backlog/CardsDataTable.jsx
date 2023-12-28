@@ -32,11 +32,11 @@ const CardsDataTable = ({ cards }) => {
 };
 
 function BacklogAddButton({ cards }) {
-  const { key: projectId } = useParams();
+  const { key: projectId, id: sprintId } = useParams();
   const key = useContext(KeyContext);
 
   const mutation = useMutation({
-    mutationFn: () => StoryService.createStory(projectId, cards),
+    mutationFn: () => StoryService.createStory(projectId, cards, sprintId),
     onSuccess: (story) => {
       queryClient.setQueryData(key, [...cards, story]);
     },
