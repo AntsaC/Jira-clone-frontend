@@ -65,10 +65,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const { key } = useParams();
-  //const project = ProjectService.getProjectByKey(key)
 
   const theme = useTheme();
-  const [open, setOpen] = React.useState(key);
+  const [open, setOpen] = React.useState(Boolean(key));
 
   const handleDrawerOpen = () => {
     setOpen(true);
