@@ -11,6 +11,8 @@ import { useContext } from "react";
 import KeyContext from "../common/KeyContext";
 import { useParams } from "react-router-dom";
 
+const storyPointChipColor = [undefined, "info", "success"];
+
 const StoryCardsToolBar = ({ cards, score }) => {
   const selected = useSelected();
 
@@ -23,9 +25,13 @@ const StoryCardsToolBar = ({ cards, score }) => {
       <Stack direction={"row"} alignItems={"center"} spacing={2}>
         <span style={{ fontWeight: "bold" }}>Story points</span>
         <Stack direction={"row"} spacing={1}>
-          <Chip label={score?.todo} />
-          <Chip label={score?.in_progress} color="info" />
-          <Chip label={score?.done} color="success" />
+          {score?.map((s, index) => (
+            <Chip
+              key={s.status}
+              label={s.point ?? "_"}
+              color={storyPointChipColor[index]}
+            />
+          ))}
         </Stack>
         {selected && <MoveOnButton />}
       </Stack>
