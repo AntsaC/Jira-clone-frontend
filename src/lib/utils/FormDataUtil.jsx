@@ -1,4 +1,6 @@
 const process = (item) => {
+  console.log(item);
+
   Object.keys(item).forEach((key) => {
     if (item[key]) {
       if (!isNaN(item[key])) {

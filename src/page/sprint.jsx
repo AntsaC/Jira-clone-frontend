@@ -7,6 +7,7 @@ import { useState } from "react";
 import NewItemButton from "../module/common/NewItemButton.jsx";
 import SprintDialog from "../module/sprint/SprintFormDialog.jsx";
 import { useParams } from "react-router-dom";
+import { addDays, format } from "date-fns";
 
 export default function SprintPage() {
   const { data } = useQuery(SprintService.allByProjectQuery(useParams().key));
@@ -19,11 +20,19 @@ export default function SprintPage() {
     });
   };
 
-  const handleOnChangeDuration = (duration) => {
-    setSprint({
+  const handleOnChange = (property, value) => {
+    let updatedSprint = {
       ...sprint,
-      duration: duration,
-    });
+      [property]: value,
+    };
+    if (updatedSprint.startDate) {
+      updatedSprint.endDate = format(
+        addDays(new Date(updatedSprint.startDate), updatedSprint.duration),
+        "yyyy-MM-dd"
+      );
+    }
+
+    setSprint(updatedSprint);
   };
 
   return (
@@ -43,7 +52,7 @@ export default function SprintPage() {
       <SprintDialog
         sprint={sprint}
         onCancel={() => setSprint(null)}
-        onChangeDuration={handleOnChangeDuration}
+        onChange={handleOnChange}
       />
     </Box>
   );
