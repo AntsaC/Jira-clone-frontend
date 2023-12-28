@@ -12,18 +12,39 @@ export default function SprintPage() {
   const { data } = useQuery(SprintService.allByProjectQuery(useParams().key));
   const [sprint, setSprint] = useState();
 
+  const handleOnShowSprintFormDialog = (currentSprint) => {
+    setSprint({
+      ...currentSprint,
+      duration: 14,
+    });
+  };
+
+  const handleOnChangeDuration = (duration) => {
+    setSprint({
+      ...sprint,
+      duration: duration,
+    });
+  };
+
   return (
     <Box>
       <Title title={"Sprints"} />
       <Stack flexDirection={"row"} justifyContent={"flex-end"}>
-        <NewItemButton onClick={() => setSprint({})} primary="Create sprint" />
+        <NewItemButton
+          onClick={() => handleOnShowSprintFormDialog({})}
+          primary="Create sprint"
+        />
       </Stack>
       {data ? (
-        <SprintDataTable sprints={data} onEdit={setSprint} />
+        <SprintDataTable sprints={data} onEdit={handleOnShowSprintFormDialog} />
       ) : (
         <CircularProgress />
       )}
-      <SprintDialog sprint={sprint} onCancel={() => setSprint(null)} />
+      <SprintDialog
+        sprint={sprint}
+        onCancel={() => setSprint(null)}
+        onChangeDuration={handleOnChangeDuration}
+      />
     </Box>
   );
 }

@@ -6,8 +6,9 @@ import FormDataUtil from "../../lib/utils/FormDataUtil";
 import queryClient from "../../config/query-client";
 import { useParams } from "react-router-dom";
 
-export default function SprintDialog({ sprint, onCancel }) {
+export default function SprintDialog({ sprint, onCancel, onChangeDuration }) {
   const { key } = useParams();
+
   const mutation = useMutation({
     mutationFn: (event) =>
       SprintService.submitSprint(key, FormDataUtil.extractFromEvent(event)),
@@ -30,6 +31,12 @@ export default function SprintDialog({ sprint, onCancel }) {
         <input type="hidden" name="id" defaultValue={sprint?.id} />
         <TextField label="Name" name="name" defaultValue={sprint?.name} />
         <TextField
+          label="Duration (days)"
+          value={sprint?.duration}
+          onChange={(e) => onChangeDuration(e.currentTarget.value)}
+          type="number"
+        />
+        <TextField
           label="Start date"
           name="startDate"
           defaultValue={sprint?.startDate}
@@ -41,7 +48,7 @@ export default function SprintDialog({ sprint, onCancel }) {
         <TextField
           label="End date"
           name="endDate"
-          defaultValue={sprint?.endDate}
+          value={sprint?.endDate}
           type="date"
           InputLabelProps={{
             shrink: true,
