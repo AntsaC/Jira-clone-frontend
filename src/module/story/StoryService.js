@@ -5,8 +5,10 @@ const createStory = (projectId, cards, sprintId) => {
     const lastStory = getLastStory(cards);
     const newStory = {
         summary: '',
-        previous: lastStory,
-        sprint: {
+        previous: lastStory && {
+            id: lastStory.id
+        },
+        sprint: sprintId && {
             id: Number(sprintId)
         }
     }
