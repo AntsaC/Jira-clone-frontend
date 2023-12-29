@@ -5,6 +5,7 @@ import BacklogPage from "../page/backlog.jsx";
 import SprintPage from "../page/sprint.jsx";
 import SprintDetailPage from "../page/sprint/detail.jsx";
 import BoardPage from "../page/sprint/board.jsx";
+import EditStoryPage from "../page/story/edit.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "project/:key/board/:id",
         element: <BoardPage />,
+      },
+      {
+        path: "project/:key/story/:id",
+        element: <EditStoryPage />,
       },
     ],
   },

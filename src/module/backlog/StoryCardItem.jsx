@@ -12,16 +12,18 @@ import StoryService from "../story/StoryService";
 import queryClient from "../../config/query-client";
 import EditableCell from "../common/EditableCell";
 import { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import KeyContext from "../common/KeyContext";
 import {
   useSelected,
   useSelectedDispatch,
 } from "../common/provider/SelectionProvider";
+import ActionBar from "../common/ActionBar";
 
 const StoryCardItem = ({ card }) => {
   const { key } = useParams();
   const queryKey = useContext(KeyContext);
+  const navigator = useNavigate();
 
   const mutation = useMutation({
     mutationFn: (partialStory) =>
@@ -108,6 +110,11 @@ const StoryCardItem = ({ card }) => {
         type={"number"}
       />
       <TableCell width={200}>Assigned</TableCell>
+      <TableCell width={100}>
+        <ActionBar
+          onEdit={() => navigator(`/project/${key}/story/${card.id}`)}
+        />
+      </TableCell>
     </TableRow>
   );
 };
