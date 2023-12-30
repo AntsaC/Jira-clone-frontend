@@ -13,6 +13,7 @@ export default function EditableListItemText({ primary, onEdited }) {
   if (edited)
     return (
       <TextField
+        autoFocus
         size="small"
         value={value}
         onChange={(e) => setValue(e.target.value)}
