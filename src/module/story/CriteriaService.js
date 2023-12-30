@@ -6,6 +6,9 @@ const getAllCriteriaByStoryQuery = (storyId) => ({
   queryFn: () => apiClient.get(`user-stories/${storyId}/criteria`).then(resp => resp.data)  
 })
 
+const newCriteria = (storyId) => 
+apiClient.post(`user-stories/${storyId}/criteria`, {criteria: 'New criteria'}).then(resp => resp.data)
+
 const updateCriteria = (storyId, id, criteria) => 
 apiClient.put(`user-stories/${storyId}/criteria/${id}`, criteria)
 .then(resp => resp.data);
@@ -25,6 +28,7 @@ const replaceCriteria = (storyId, criteria) => {
 }
 
 const CriteriaService = {
+    newCriteria,
     updateCriteria,
     replaceCriteria,
     getAllCriteriaByStoryQuery
