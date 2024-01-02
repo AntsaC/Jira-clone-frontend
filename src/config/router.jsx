@@ -6,11 +6,12 @@ import SprintPage from "../page/sprint.jsx";
 import SprintDetailPage from "../page/sprint/detail.jsx";
 import BoardPage from "../page/sprint/board.jsx";
 import EditStoryPage from "../page/story/edit.jsx";
+import LoginPage from "../page/login.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <h1>Login page</h1>,
+    element: <LoginPage />,
   },
   {
     path: "/",
