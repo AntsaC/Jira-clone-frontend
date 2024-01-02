@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../page/main/App.jsx";
+import App, { loader as mainLoader } from "../page/main/App.jsx";
 import ProjectPage from "../page/project.jsx";
 import BacklogPage from "../page/backlog.jsx";
 import SprintPage from "../page/sprint.jsx";
@@ -16,6 +16,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    loader: mainLoader,
     children: [
       {
         path: "projects",
