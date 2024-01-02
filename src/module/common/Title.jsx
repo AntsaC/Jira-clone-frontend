@@ -1,13 +1,11 @@
-import PropTypes from "prop-types";
+import { Typography } from "@mui/material";
 
-const Title = ({title}) => {
-  return <h1>
+const Title = ({ title }) => {
+  return (
+    <Typography variant="h1" marginTop={1}>
       {title}
-  </h1>
-}
-
-Title.propTypes = {
-    title: PropTypes.string
-}
+    </Typography>
+  );
+};
 
 export default Title;

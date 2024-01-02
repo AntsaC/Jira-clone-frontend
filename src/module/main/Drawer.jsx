@@ -131,7 +131,7 @@ export default function PersistentDrawerLeft() {
           </>
         )}
       </Drawer>
-      <Main sx={{ paddingX: 4, paddingY: 1 }} open={open}>
+      <Main sx={{ paddingX: 4, paddingY: 2 }} open={open}>
         <DrawerHeader />
         <Outlet />
       </Main>

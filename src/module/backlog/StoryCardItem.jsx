@@ -19,11 +19,13 @@ import {
   useSelectedDispatch,
 } from "../common/provider/SelectionProvider";
 import ActionBar from "../common/ActionBar";
+import useProject from "../../lib/hook/useProject";
 
 const StoryCardItem = ({ card }) => {
   const { key } = useParams();
   const queryKey = useContext(KeyContext);
   const navigator = useNavigate();
+  const project = useProject();
 
   const mutation = useMutation({
     mutationFn: (partialStory) =>
@@ -76,7 +78,7 @@ const StoryCardItem = ({ card }) => {
         )}
       </TableCell>
       <TableCell width={100}>
-        {key}-{card.id}
+        {project.key}-{card.id}
       </TableCell>
       <EditableCell
         intialValue={card.summary}
