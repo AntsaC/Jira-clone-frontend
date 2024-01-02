@@ -15,6 +15,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Outlet, useParams } from "react-router-dom";
 import routes from "./Routes.jsx";
 import NavItem from "./NavItem.jsx";
+import CurrentUserCard from "./CurrentUserCard.jsx";
 
 const drawerWidth = 240;
 
@@ -94,6 +95,7 @@ export default function PersistentDrawerLeft() {
             </IconButton>
           )}
           <Typography variant="h6" noWrap component="div"></Typography>
+          <CurrentUserCard />
         </Toolbar>
       </AppBar>
       <Drawer
