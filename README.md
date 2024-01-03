@@ -1,8 +1,23 @@
-# React + Vite
+# Jira clone frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The "Jira clone application" is a simple clone of [Jira Sowftware](https://www.atlassian.com/fr/software/jira), a plateform to manage agile projects.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Authentication based on JWT
+- Projects management
+- Product backlog
+- User stories management
+- Draggable Kanban Board
+- Sprints management
+
+## Build with
+
+- React material design
+- React tanstack query
+- React router v6
+- Axios
+- React DnD
+- Styled component
+
+#### Visit https://portfolio-antsac.vercel.app for more information
