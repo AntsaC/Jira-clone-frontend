@@ -2,6 +2,7 @@ import MyDataGrid from "../common/MyDataGrid.jsx";
 import PropTypes from "prop-types";
 import ActionBar from "../common/ActionBar.jsx";
 import { Link } from "react-router-dom";
+import { Avatar, Stack } from "@mui/material";
 
 const ProjectDataGrid = ({ project, onEditProject }) => {
   const cols = [
@@ -25,11 +26,17 @@ const ProjectDataGrid = ({ project, onEditProject }) => {
     },
     {
       field: "lead",
-      valueGetter: (params) => params.row.lead?.username,
+      renderCell: (params) => (
+        <Stack direction={"row"} alignItems={"center"} gap={2}>
+          <Avatar />
+          <div>{params.row.lead?.username}</div>
+        </Stack>
+      ),
       headerName: "Lead",
     },
     {
-      field: "",
+      field: "action",
+      headerName: "",
       renderCell: (params) => (
         <ActionBar
           onEdit={() => onEditProject(params.row)}

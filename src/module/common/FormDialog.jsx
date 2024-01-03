@@ -25,7 +25,7 @@ const FormDialog = ({
         <DialogContent>{children}</DialogContent>
         <DialogActions>
           <Box display={"flex"} gap={2} paddingRight={2} paddingBottom={2}>
-            <Button variant={"contained"} onClick={onCancel}>
+            <Button variant={"contained"} color="secondary" onClick={onCancel}>
               Cancel
             </Button>
             <Button variant={"contained"} color={"primary"} type={"submit"}>

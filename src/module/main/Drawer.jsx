@@ -16,6 +16,8 @@ import { Outlet, useParams } from "react-router-dom";
 import routes from "./Routes.jsx";
 import NavItem from "./NavItem.jsx";
 import CurrentUserCard from "./CurrentUserCard.jsx";
+import ToolbarLink from "./ToolbarLink.jsx";
+import useProject from "../../lib/hook/useProject.js";
 
 const drawerWidth = 240;
 
@@ -41,6 +43,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
+  boxShadow: "",
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -61,11 +64,12 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
+  justifyContent: "space-between",
 }));
 
 export default function PersistentDrawerLeft() {
   const { key } = useParams();
+  const project = useProject();
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(Boolean(key));
@@ -81,7 +85,7 @@ export default function PersistentDrawerLeft() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} sx={{ background: "none" }}>
         <Toolbar>
           {key && (
             <IconButton
@@ -95,6 +99,10 @@ export default function PersistentDrawerLeft() {
             </IconButton>
           )}
           <Typography variant="h6" noWrap component="div"></Typography>
+          <Typography variant="h6" noWrap component="div" fontWeight={500}>
+            Jira clone
+          </Typography>
+          <ToolbarLink />
           <CurrentUserCard />
         </Toolbar>
       </AppBar>
@@ -114,6 +122,14 @@ export default function PersistentDrawerLeft() {
         {key && (
           <>
             <DrawerHeader>
+              <Typography
+                variant="h5"
+                fontWeight={500}
+                sx={{ justifySelf: "center", marginLeft: 2 }}
+                align="center"
+              >
+                {project?.name}
+              </Typography>
               <IconButton onClick={handleDrawerClose}>
                 {theme.direction === "ltr" ? (
                   <ChevronLeftIcon />

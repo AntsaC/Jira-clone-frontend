@@ -1,4 +1,4 @@
-.css-myld5g-MuiDataGrid-root {
-    --unstable_DataGrid-headWeight: 600;
+.header {
+    font-weight: 600 !important;
 }
 

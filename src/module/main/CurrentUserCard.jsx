@@ -1,4 +1,4 @@
-import { Avatar, Stack } from "@mui/material";
+import { Avatar, Stack, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import AuthenticationService from "../authentication/Authenticationservice";
 
@@ -14,7 +14,9 @@ export default function CurrentUserCard() {
         marginLeft={"auto"}
       >
         <Avatar />
-        <h4>{user?.username}</h4>
+        <Typography variant="h6" component="div">
+          {user?.username}
+        </Typography>
       </Stack>
     );
   }

@@ -1,15 +1,17 @@
 import { Box, CircularProgress } from "@mui/material";
-import Title from "../../module/common/Title";
 import BoardContainer from "../../module/board/BoardsContainer";
 import { useQuery } from "@tanstack/react-query";
 import BoardService from "../../module/board/BoardService";
 import { useParams } from "react-router-dom";
 import StoryService from "../../module/story/StoryService";
 import queryClient from "../../config/query-client";
+import SprintService from "../../module/sprint/service";
+import SprintHeader from "../../module/sprint/SprintHeader";
 
 export default function BoardPage() {
-  const { id } = useParams();
+  const { id, key } = useParams();
   const { data: board } = useQuery(BoardService.boardBySprint(id));
+  const { data: sprint } = useQuery(SprintService.oneQuery(key, id));
 
   const handleOnDrop = (column, item) => {
     StoryService.partialUpdateStory(item.story.id, {
@@ -46,7 +48,7 @@ export default function BoardPage() {
 
   return (
     <Box>
-      <Title title={"Sprint board"} />
+      <SprintHeader sprint={sprint} />
       {board ? (
         <BoardContainer board={board} onDrop={handleOnDrop} />
       ) : (

@@ -9,14 +9,22 @@ export default function BoardColumn({ column, onDrop }) {
   });
 
   return (
-    <Card ref={drop} sx={{ width: "25%", minHeight: 300 }}>
+    <Card
+      ref={drop}
+      sx={{ width: "25%", minHeight: 300, backgroundColor: "#F4F5F7" }}
+    >
       <CardContent>
         <Stack
           direction={"row"}
           justifyContent={"space-between"}
           alignItems={"center"}
         >
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          <Typography
+            sx={{ fontSize: 14 }}
+            color="text.secondary"
+            fontWeight={600}
+            gutterBottom
+          >
             {column.name}
           </Typography>
           <p>{column.cards?.length}</p>

@@ -5,6 +5,7 @@ import queryClient from "../../config/query-client.js";
 import { redirect } from "react-router-dom";
 import { createTheme } from "@mui/material";
 import { ThemeProvider } from "@emotion/react";
+import { blue, blueGrey } from "@mui/material/colors";
 
 export async function loader() {
   try {
@@ -18,13 +19,33 @@ export async function loader() {
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#2196f3",
+      main: blue[800],
+    },
+    secondary: {
+      main: blueGrey[50],
     },
   },
   typography: {
+    allVariants: {
+      color: "#102F5C",
+    },
     h1: {
-      fontSize: "3rem",
+      fontSize: "2.2rem",
       fontWeight: 600,
+    },
+    h6: {
+      fontSize: "1rem",
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+          fontSize: "0.875rem",
+          height: "35px",
+        },
+      },
     },
   },
 });

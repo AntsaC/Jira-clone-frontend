@@ -60,7 +60,11 @@ export default function LoginPage() {
                 sx={{ marginTop: 4, width: "70%", alignSelf: "center" }}
                 variant="contained"
               >
-                {mutation.isPending ? <CircularProgress /> : "Sign in"}
+                {mutation.isPending ? (
+                  <CircularProgress size={20} />
+                ) : (
+                  "Sign in"
+                )}
               </Button>
               <Typography sx={{ alignSelf: "center" }}>
                 New here ? <Link>Create new account</Link>

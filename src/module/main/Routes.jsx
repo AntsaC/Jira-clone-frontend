@@ -1,4 +1,10 @@
-import { Dashboard, Folder, ListAlt, QueryBuilder } from "@mui/icons-material";
+import {
+  Cached,
+  CalendarViewWeek,
+  Dashboard,
+  Folder,
+  ListAlt,
+} from "@mui/icons-material";
 
 const createRoutes = (currentProject) => [
   {
@@ -19,12 +25,12 @@ const createRoutes = (currentProject) => [
   {
     primary: "Sprint",
     path: createProjectChildrenPath(currentProject, "sprint"),
-    icon: <QueryBuilder />,
+    icon: <Cached />,
   },
   {
     primary: "Board",
     path: createProjectChildrenPath(currentProject, "board"),
-    icon: <QueryBuilder />,
+    icon: <CalendarViewWeek />,
   },
 ];
 
