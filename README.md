@@ -20,4 +20,4 @@ The "Jira clone application" is a simple clone of [Jira Sowftware](https://www.a
 - React DnD
 - Styled component
 
-#### Visit https://portfolio-antsac.vercel.app for more information
+#### Visit https://portfolio-antsac.vercel.app/Jira for more information
